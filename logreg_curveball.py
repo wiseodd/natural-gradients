@@ -48,7 +48,7 @@ rho = 0.9
 z = np.zeros_like(W)  # (2, 1)
 
 # Training
-for it in range(5):
+for it in range(15):
     m = y.shape[0]
 
     # Forward

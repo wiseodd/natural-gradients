@@ -26,10 +26,10 @@ def NLL(y, t):
     return -np.mean(t*np.log(y) + (1-t)*np.log(1-y))
 
 
-alpha = 0.1
+alpha = 1
 
 # Training
-for it in range(5):
+for it in range(15):
     # Forward
     z = X_train @ W
     y = sigm(z)

@@ -39,11 +39,11 @@ def grads(y, z):
     return dLdz, dLdW
 
 
-alpha = 0.1
+alpha = 1
 
 # Training
-for it in range(5):
-    m = y.shape[0]
+for it in range(15):
+    m = y_train.shape[0]
 
     # Forward
     o = X_train @ W
@@ -57,7 +57,7 @@ for it in range(5):
     dLdz, dLdW = grads(y_train, z)
 
     # Hessian of loss wrt. output
-    H_L = (z * (1-z))[:, :, None]  # m x 1 x 1
+    H_L = np.ones([1, 1])
 
     # Gauss-Newton matrix
     G = np.mean(dLdW @ H_L @ dLdW.transpose((0, 2, 1)), axis=0)
