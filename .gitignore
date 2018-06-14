@@ -103,3 +103,5 @@ ENV/
 .vscode
 
 MNIST_data/
+*.npy
+plot.py
