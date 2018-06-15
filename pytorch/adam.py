@@ -75,5 +75,5 @@ y = z.argmax(dim=1)
 acc = np.mean(y.numpy() == t_test)
 
 print(f'Accuracy: {acc:.3f}')
-np.save('adam_losses.npy', losses)
+np.save('temp/adam_losses.npy', losses)
 

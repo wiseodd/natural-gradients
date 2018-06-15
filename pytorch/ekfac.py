@@ -105,15 +105,16 @@ for i in range(1, 5000):
             A[k] = rho*A[k] + (1-rho)*A_[k]
             G[k] = rho*G[k] + (1-rho)*G_[k]
 
-        U_G1, _ = torch.qr(G1_)
-        U_A1, _ = torch.qr(A1_)
-        U_G2, _ = torch.qr(G2_)
-        U_A2, _ = torch.qr(A2_)
-        U_G3, _ = torch.qr(G3_)
-        U_A3, _ = torch.qr(A3_)
+        # Compute eigenbases
+        U_A = []
+        U_G = []
 
-        U_A = [U_A1, U_A2, U_A3]
-        U_G = [U_G1, U_G2, U_G3]
+        for k in range(3):
+            _, U_Ak = torch.symeig(A[k], eigenvectors=True)
+            _, U_Gk = torch.symeig(G[k], eigenvectors=True)
+
+            U_A.append(U_Ak)
+            U_G.append(U_Gk)
 
     # Step
     for k in range(3):
@@ -139,5 +140,5 @@ y = z.argmax(dim=1)
 acc = np.mean(y.numpy() == t_test)
 
 print(f'Accuracy: {acc:.3f}')
-np.save('ekfac_losses.npy', losses)
+np.save('temp/ekfac_losses.npy', losses)
 
