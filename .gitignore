@@ -106,3 +106,4 @@ MNIST_data/
 *.npy
 plot.py
 kfac_diag.py
+temp/
