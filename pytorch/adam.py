@@ -43,6 +43,7 @@ alpha = 0.001
 # Model
 model = Model()
 optimizer = torch.optim.Adam(model.parameters(), lr=alpha)
+#  optimizer = torch.optim.SGD(model.parameters(), lr=5e-2)
 
 # Visualization stuffs
 losses = []

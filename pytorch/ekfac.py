@@ -87,7 +87,7 @@ for i in range(1, 5000):
     losses.append(loss if i == 1 else 0.99*losses[-1] + 0.01*loss)
 
     # Compute eigenbasis
-    if i-1 % eigbasis_comp_freq == 0:
+    if (i-1) % eigbasis_comp_freq == 0:
         G1_ = 1/m * a1.grad.t() @ a1.grad
         A1_ = 1/m * X_mb.t() @ X_mb
         G2_ = 1/m * a2.grad.t() @ a2.grad

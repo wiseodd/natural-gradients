@@ -54,11 +54,14 @@ alpha = 0.001
 A = []  # KFAC A
 G = []  # KFAC G
 
+A_inv, G_inv = 3*[0], 3*[0]
+
 for Wi in model.W:
     A.append(torch.zeros(Wi.size(1)))
     G.append(torch.zeros(Wi.size(0)))
 
 eps = 1e-2
+inverse_update_freq = 20
 
 # Visualization stuffs
 losses = []
@@ -101,10 +104,12 @@ for i in range(1, 5000):
 
     # Step
     for k in range(3):
-        A_inv = (A[k] + eps*torch.eye(A[k].shape[0])).inverse()
-        G_inv = (G[k] + eps*torch.eye(G[k].shape[0])).inverse()
+        # Amortize the inverse. Only update inverses every now and then
+        if (i-1) % inverse_update_freq == 0:
+            A_inv[k] = (A[k] + eps*torch.eye(A[k].shape[0])).inverse()
+            G_inv[k] = (G[k] + eps*torch.eye(G[k].shape[0])).inverse()
 
-        delta = G_inv @ model.W[k].grad.data @ A_inv
+        delta = G_inv[k] @ model.W[k].grad.data @ A_inv[k]
         model.W[k].data -= alpha * delta
 
     # PyTorch stuffs
