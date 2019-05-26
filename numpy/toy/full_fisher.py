@@ -23,7 +23,7 @@ def sigm(x):
 
 
 def NLL(y, t):
-    return -np.mean(t*np.log(y) + (1-t)*np.log(1-y))
+    return -np.sum(t*np.log(y) + (1-t)*np.log(1-y))
 
 
 alpha = 1

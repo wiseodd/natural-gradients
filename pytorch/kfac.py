@@ -49,7 +49,7 @@ class Model(nn.Module):
 model = Model()
 
 m = 128  # mb size
-alpha = 0.001
+alpha = 0.00001
 
 A = []  # KFAC A
 G = []  # KFAC G
@@ -76,7 +76,7 @@ for i in range(1, 5000):
     a1, h1, a2, h2 = cache
 
     # Loss
-    loss = F.cross_entropy(z, t_mb)
+    loss = F.cross_entropy(z, t_mb, reduction='sum')
     loss.backward()
 
     if (i-1) % 100 == 0:
